@@ -27,9 +27,9 @@ public class Shader {
 		}
 		return loc;
 	}
-	
+
 	public void setMatrix4f(String uniform, Matrix4f mat) {
-		GL20.glUniformMatrix4fv(getUniformLocation(uniform), false, mat.e);
+		GL20.glUniformMatrix4fv(getUniformLocation(uniform), true, mat.e);
 	}
 	
 	public void bind() {
