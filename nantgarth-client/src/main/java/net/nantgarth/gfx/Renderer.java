@@ -31,7 +31,9 @@ public class Renderer implements ResizeHandler {
 	}
 	
 	public void tile(float x, float y, String sprite) {
-		spriteBatch.submit(x, y, 1, 1, sprite);
+		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {			
+			spriteBatch.submit(x, y, 1, 1, sprite);
+		}
 	}
 	
 	public void end() {

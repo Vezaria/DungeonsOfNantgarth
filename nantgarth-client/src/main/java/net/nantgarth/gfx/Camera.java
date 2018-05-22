@@ -8,6 +8,7 @@ public class Camera {
 	private Vector2f position;
 	
 	private Matrix4f projection;
+	private float left, right, bottom, top;
 	
 	public Camera() {
 		this.position = new Vector2f();
@@ -15,9 +16,26 @@ public class Camera {
 	}
 	
 	public void updateProjection(int windowWidth, int windowHeight) {
-		float halfWidth = windowWidth / 200f;
-		float halfHeight = windowHeight / 200f;
-		projection = Matrix4f.ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, -1, 1);
+		float viewWidth = windowWidth / 200f;
+		float viewHeight = windowHeight / 200f;
+		this.left = -viewWidth;
+		this.right = viewWidth;
+		this.bottom = -viewHeight;
+		this.top = viewHeight;
+		projection = Matrix4f.ortho(left, right, bottom, top, -1, 1);
+	}
+	
+	public float getTop() {
+		return top + position.y;
+	}
+	public float getBottom() {
+		return bottom + position.y;
+	}
+	public float getLeft() {
+		return left + position.x;
+	}
+	public float getRight() {
+		return right + position.x;
 	}
 	
 	public Vector2f getPosition() {
