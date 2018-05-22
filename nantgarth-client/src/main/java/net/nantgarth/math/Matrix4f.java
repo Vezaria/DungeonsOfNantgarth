@@ -106,6 +106,23 @@ public class Matrix4f {
 		
 		return res;
 	}
+	
+	/**
+	 * Constructs a translation matrix.
+	 * @param x The translation in the x axis.
+	 * @param y The translation in the y axis.
+	 * @param z The translation in the z axis.
+	 * @return Translation matrix.
+	 */
+	public static Matrix4f translate(float x, float y, float z) {
+		Matrix4f res = new Matrix4f(1.0f);
+
+		res.e[3 + 0 * 4] = x;
+		res.e[3 + 1 * 4] = y;
+		res.e[3 + 2 * 4] = z;
+		
+		return res;
+	}
 
 	public String toString() {
 		String res = "";

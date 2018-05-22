@@ -15,11 +15,14 @@ import net.nantgarth.gfx.buffers.VBO;
  * contained within the same sprite atlas. As such, a sprite atlas must be provided to the SpriteBatch.
  */
 public final class SpriteBatch {
-
+	
 	/**
 	 * The size of the buffer. This may have to be increased at some point.
 	 */
-	private static final int BUFFER_SIZE = 4096;
+	private static final int BUFFER_SIZE = 4096 * 8;
+
+	private static final String VERTEX = "res/shaders/test.vs";
+	private static final String FRAGMENT = "res/shaders/test.fs";
 	
 	private FloatBuffer vertices;
 	private int vertexCount;
@@ -27,11 +30,14 @@ public final class SpriteBatch {
 	
 	private VBO vbo;
 	private VAO vao;
+
+	private Shader shader;
 	
 	public SpriteBatch() {
 		this.vertices = MemoryUtil.memAllocFloat(BUFFER_SIZE);
 		this.vertexCount = 0;
 		this.drawing = false;
+		this.shader = Shader.load(VERTEX, FRAGMENT);
 		initialize();
 	}
 	
@@ -121,10 +127,12 @@ public final class SpriteBatch {
 		drawing = true;
 	}
 	
-	public void end() {
+	public void end(Camera camera) {
 		vertices.flip();
 		vao.bind();
-		// TODO: Bind shader
+		shader.bind();
+		shader.setMatrix4f("projection", camera.getProjection());
+		shader.setMatrix4f("view", camera.getView());
 		vbo.bind();
 		vbo.setSubData(vertices);
 		
