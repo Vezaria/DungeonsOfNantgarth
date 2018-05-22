@@ -1,0 +1,23 @@
+<sprites>
+	<sprite id="stone">
+		<sheet>tiles</sheet>
+		<xPos>0</xPos>
+		<yPos>0</yPos>
+		<width>12</width>
+		<height>12</height>
+	</sprite>
+	<sprite id="grass">
+		<sheet>tiles</sheet>
+		<xPos>12</xPos>
+		<yPos>0</yPos>
+		<width>12</width>
+		<height>12</height>
+	</sprite>
+	<sprite id="sand">
+		<sheet>tiles</sheet>
+		<xPos>24</xPos>
+		<yPos>0</yPos>
+		<width>12</width>
+		<height>12</height>
+	</sprite>
+</sprites>

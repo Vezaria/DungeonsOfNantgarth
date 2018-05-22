@@ -6,3 +6,14 @@ https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-aut
 https://gamedevelopment.tutsplus.com/tutorials/make-your-game-pop-with-particle-effects-and-quadtrees--gamedev-2138
 https://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
 https://github.com/scalecube/socketio
+
+On Startup
+ - Load all textures into one big texture atlas?
+ - Define sprites and animations in XML files?
+ - Translate textures and sub textures into positions on main texture atlas?
+ 
+Beware of max texture size - int maxSize = glGetInteger(GL_MAX_TEXTURE_SIZE);
+Texture atlas should probably also be generated to a power of two
+ 
+https://www.gamedev.net/articles/programming/graphics/opengl-batch-rendering-r3900/
+https://github.com/SilverTiger/lwjgl3-tutorial/wiki/Batching

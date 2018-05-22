@@ -21,4 +21,5 @@ dependencies {
 	compile "org.lwjgl:lwjgl-nuklear:$lwjglVersion:$lwjglNatives"
 	compile "org.lwjgl:lwjgl-openal:$lwjglVersion:$lwjglNatives"
 	compile "org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives"
+	compile "org.l33tlabs.twl:pngdecoder:1.0"
 }

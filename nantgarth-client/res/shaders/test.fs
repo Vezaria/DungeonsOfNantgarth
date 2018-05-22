@@ -2,7 +2,11 @@
 
 layout (location = 0) out vec4 color;
 
+in vec2 v_tex;
+
+uniform sampler2D atlas;
+
 void main()
 {
-	color = vec4(1.0, 0.0, 0.5, 1.0);
+	color = texture2D(atlas, v_tex);
 }
