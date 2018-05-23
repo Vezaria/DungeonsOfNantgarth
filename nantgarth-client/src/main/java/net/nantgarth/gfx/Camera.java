@@ -28,12 +28,15 @@ public class Camera {
 	public float getTop() {
 		return top + position.y;
 	}
+	
 	public float getBottom() {
 		return bottom + position.y;
 	}
+	
 	public float getLeft() {
 		return left + position.x;
 	}
+	
 	public float getRight() {
 		return right + position.x;
 	}

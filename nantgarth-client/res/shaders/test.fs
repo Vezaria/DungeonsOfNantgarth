@@ -9,4 +9,5 @@ uniform sampler2D atlas;
 void main()
 {
 	color = texture2D(atlas, v_tex);
+	if(color.a != 1) discard;
 }
