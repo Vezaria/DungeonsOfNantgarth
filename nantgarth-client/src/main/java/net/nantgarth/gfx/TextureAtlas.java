@@ -3,39 +3,27 @@ package net.nantgarth.gfx;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import net.nantgarth.gfx.Registry.SheetRegister;
 import net.nantgarth.gfx.Registry.SpriteRegister;
 
 /**
- * The atlas generator is responsible for reading the sheets.xml and sprites.xml files
- * and constructing the master texture atlas.
- * It is also responsible for relocating sprites and resolving their new texture coordinates
- * after they have been mapped onto the master atlas.
+ * The atlas generator is responsible constructing the master texture atlas.
+ * It is also responsible for relocating sprites and resolving their new 
+ * texture coordinates after they have been mapped onto the master atlas.
  */
 public class TextureAtlas {
 
 	/**
 	 * For the time being this value is hard coded.
-	 * If for some reason our 12x12 sprites manage to fill this
-	 * entire texture we should increase this but at the moment
-	 * this will do.
+	 * Once we have more sprites we will need to increase this, but
+	 * for now this will do.
 	 */
 	public static final int ATLAS_SIZE = 160;
 	
@@ -89,17 +77,6 @@ public class TextureAtlas {
 		
 		    tcLookup.put(sr.id, new TextureCoordinates(s1, t1, s2, t2));
 		}
-	}
-	
-	/**
-	 * Utility method for reading an element from an XML element.
-	 */
-	private static String readElement(String name, Element e) {
-		NodeList list = e.getElementsByTagName(name);
-		if(list.getLength() == 0) {
-			throw new RuntimeException("Element has no " + name + " associated.");
-		}
-		return e.getElementsByTagName(name).item(0).getTextContent();
 	}
 	
 	private static void createTexture() {
