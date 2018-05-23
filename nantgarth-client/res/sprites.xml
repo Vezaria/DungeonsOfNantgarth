@@ -1,20 +1,20 @@
 <sprites>
 	<sprite id="stone">
-		<sheet>tiles</sheet>
+		<sheet>floors</sheet>
 		<xPos>0</xPos>
 		<yPos>0</yPos>
 		<width>20</width>
 		<height>20</height>
 	</sprite>
 	<sprite id="grass">
-		<sheet>tiles</sheet>
+		<sheet>floors</sheet>
 		<xPos>20</xPos>
 		<yPos>0</yPos>
 		<width>20</width>
 		<height>20</height>
 	</sprite>
 	<sprite id="sand">
-		<sheet>tiles</sheet>
+		<sheet>floors</sheet>
 		<xPos>40</xPos>
 		<yPos>0</yPos>
 		<width>20</width>

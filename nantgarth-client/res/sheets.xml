@@ -1,14 +1,5 @@
 <sheets>
-	<sheet id="small">
-		<name>small.png</name>
-	</sheet>
-	<sheet id="tiles">
-		<name>tiles.png</name>
-	</sheet>
-	<sheet id="test">
-		<name>test.png</name>
-	</sheet>
-	<sheet id="smaller">
-		<name>smaller.png</name>
+	<sheet id="floors">
+		<name>floors.png</name>
 	</sheet>
 </sheets>
