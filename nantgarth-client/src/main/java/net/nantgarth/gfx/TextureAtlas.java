@@ -20,6 +20,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import net.nantgarth.gfx.Registry.SheetRegister;
+import net.nantgarth.gfx.Registry.SpriteRegister;
+
 /**
  * The atlas generator is responsible for reading the sheets.xml and sprites.xml files
  * and constructing the master texture atlas.
@@ -64,47 +67,27 @@ public class TextureAtlas {
 	}
 	
 	private static void parseSprites() {
-		try {
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder b = dbf.newDocumentBuilder();
-			Document doc = b.parse(new File("res/sprites.xml"));
-			doc.getDocumentElement().normalize();
+		for(SpriteRegister sr : Registry.SPRITE_REGISTRY) {
+			int xPos = sr.xPos;
+			int yPos = sr.yPos;
+			int width = sr.width;
+			int height = sr.height;
 			
-			NodeList list = doc.getElementsByTagName("sprite");
-			for(int i = 0; i < list.getLength(); i++) {
-				Node n = list.item(i);
-				if(n.getNodeType() == Node.ELEMENT_NODE) {
-					Element e = (Element)n;
-					String id = e.getAttribute("id");
-					if(id.isEmpty()) {
-						throw new RuntimeException("Sprite element has no id attribute.");
-					}
-					
-					String sheetID = readElement("sheet", e);
-					Sheet sheet = getSheet(sheetID);
-					if(sheet == null) {
-						throw new RuntimeException(id + " has invalid sheet element.");
-					}
-					
-					int xPos = Integer.parseInt(readElement("xPos", e));
-					int yPos = Integer.parseInt(readElement("yPos", e));
-					int width  = Integer.parseInt(readElement("width",  e));
-					int height = Integer.parseInt(readElement("height", e));
-					
-					xPos += sheet.placedX;
-					yPos += sheet.placedY;
-					
-				    float s1 = (float)xPos / (float)TextureAtlas.ATLAS_SIZE;
-				    float t1 = (float)yPos / (float)TextureAtlas.ATLAS_SIZE;
-				    
-				    float s2 = (float)(xPos + width) / (float)TextureAtlas.ATLAS_SIZE;
-				    float t2 = (float)(yPos + height) / (float)TextureAtlas.ATLAS_SIZE;
-				
-				    tcLookup.put(id, new TextureCoordinates(s1, t1, s2, t2));
-				}
+			Sheet sheet = getSheet(sr.sheetID);
+			if(sheet == null) {
+				throw new RuntimeException(sr.id + " has invalid sheet element.");
 			}
-		} catch(Exception e) {
-			e.printStackTrace();
+			
+			xPos += sheet.placedX;
+			yPos += sheet.placedY;
+			
+		    float s1 = (float)xPos / (float)TextureAtlas.ATLAS_SIZE;
+		    float t1 = (float)yPos / (float)TextureAtlas.ATLAS_SIZE;
+		    
+		    float s2 = (float)(xPos + width) / (float)TextureAtlas.ATLAS_SIZE;
+		    float t2 = (float)(yPos + height) / (float)TextureAtlas.ATLAS_SIZE;
+		
+		    tcLookup.put(sr.id, new TextureCoordinates(s1, t1, s2, t2));
 		}
 	}
 	
@@ -179,33 +162,9 @@ public class TextureAtlas {
 		texture = new Texture(data, ATLAS_SIZE, ATLAS_SIZE);
 	}
 	
-	private static void parseSpritesheets() {
-		try {
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder b = dbf.newDocumentBuilder();
-			Document doc = b.parse(new File("res/sheets.xml"));
-			doc.getDocumentElement().normalize();
-			
-			NodeList list = doc.getElementsByTagName("sheet");
-			for(int i = 0; i < list.getLength(); i++) {
-				Node n = list.item(i);
-				if(n.getNodeType() == Node.ELEMENT_NODE) {
-					Element e = (Element)n;
-					String id = e.getAttribute("id");
-					if(id.isEmpty()) {
-						throw new RuntimeException("Sheet element has no id attribute.");
-					}
-					NodeList names = e.getElementsByTagName("name");
-					if(names.getLength() == 0) {
-						throw new RuntimeException("Sheet element has no name.");
-					}
-					String name = e.getElementsByTagName("name").item(0).getTextContent();
-					
-					sheets.add(new Sheet(id, "res/sprites/sheets/" + name));
-				}
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
+	private static void parseSpritesheets() {	
+		for(SheetRegister sr : Registry.SHEET_REGISTRY) {
+			sheets.add(new Sheet(sr.id, "res/sprites/sheets/" + sr.file));
 		}
 		
 		// Sort the sprite sheets from largest to smallest.
