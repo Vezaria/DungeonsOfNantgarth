@@ -45,6 +45,8 @@ public final class Nantgarth {
 				}
 			}
 			
+			renderer.triangle(-2, -2, "sand");
+			
 			renderer.end();
 			
 			if(Input.key(GLFW.GLFW_KEY_W).held) {

@@ -9,6 +9,8 @@ import org.lwjgl.system.MemoryUtil;
 
 import net.nantgarth.gfx.buffers.VAO;
 import net.nantgarth.gfx.buffers.VBO;
+import net.nantgarth.gfx.mesh.Mesher;
+import net.nantgarth.math.Vector2f;
 
 /**
  * A <code>SpriteBatch</code> is used to efficiently draw multiple sprites whose textures are
@@ -41,70 +43,10 @@ public final class SpriteBatch {
 		initialize();
 	}
 	
-	public void submit(float x, float y, float width, float height, String sprite) {
+	public void submit(float x, float y, String sprite, Mesher mesher) {
 		if(!drawing) return;
-		
 		TextureCoordinates tc = TextureAtlas.get(sprite);
-		submit(x, y, width, height, tc.s1, tc.t1, tc.s2, tc.t2);
-	}
-	
-	public void submit(float x, float y, float width, float height, int px, int py, int pw, int ph) {
-		if(!drawing) return;
-
-	    float s1 = (float)px / (float)TextureAtlas.ATLAS_SIZE;
-	    float t1 = (float)py / (float)TextureAtlas.ATLAS_SIZE;
-	    
-	    float s2 = (float)(px + pw) / (float)TextureAtlas.ATLAS_SIZE;
-	    float t2 = (float)(py + ph) / (float)TextureAtlas.ATLAS_SIZE;
-	    
-	    submit(x, y, width, height, s1, t1, s2, t2);
-	}
-	
-	public void submit(float x, float y, float width, float height, float s1, float t1, float s2, float t2) {
-		if(!drawing) return;
-		
-	    float x1 = x;
-	    float y1 = y;
-	    float x2 = x + width;
-	    float y2 = y + height;
-	    
-	    // Bottom left
-	    vertices.put(x1);
-	    vertices.put(y1);
-	    vertices.put(s1);
-	    vertices.put(t2);
-
-	    // Top left
-	    vertices.put(x1);
-	    vertices.put(y2);
-	    vertices.put(s1);
-	    vertices.put(t1);
-
-	    // Top right
-	    vertices.put(x2);
-	    vertices.put(y2);
-	    vertices.put(s2);
-	    vertices.put(t1);
-	    
-	    // Bottom left
-	    vertices.put(x1);
-	    vertices.put(y1);
-	    vertices.put(s1);
-	    vertices.put(t2);
-
-	    // Top right
-	    vertices.put(x2);
-	    vertices.put(y2);
-	    vertices.put(s2);
-	    vertices.put(t1);
-	    
-	    // Bottom right
-	    vertices.put(x2);
-	    vertices.put(y1);
-	    vertices.put(s2);
-	    vertices.put(t2);
-	    
-	    vertexCount += 6;
+		vertexCount += mesher.generate(vertices, new Vector2f(x, y), tc);
 	}
 	
 	private void initialize() {

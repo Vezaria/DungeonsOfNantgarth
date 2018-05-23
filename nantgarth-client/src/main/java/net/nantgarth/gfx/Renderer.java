@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
 import net.nantgarth.gfx.cb.ResizeHandler;
+import net.nantgarth.gfx.mesh.Mesher;
 
 public class Renderer implements ResizeHandler {
 
@@ -31,8 +32,14 @@ public class Renderer implements ResizeHandler {
 	}
 	
 	public void tile(float x, float y, String sprite) {
-		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {			
-			spriteBatch.submit(x, y, 1, 1, sprite);
+		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
+			spriteBatch.submit(x, y, sprite, Mesher.FLOOR);
+		}
+	}
+	
+	public void triangle(float x, float y, String sprite) {
+		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
+			spriteBatch.submit(x, y, sprite, Mesher.TRIANGLE);
 		}
 	}
 	
