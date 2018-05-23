@@ -8,18 +8,20 @@ import net.nantgarth.gfx.Camera;
 import net.nantgarth.gfx.Renderer;
 import net.nantgarth.gfx.Window;
 import net.nantgarth.input.Input;
+import net.nantgarth.world.Level;
 
 public final class Nantgarth {
 	
 	private Camera camera;
 	private Renderer renderer;
+	private Level level;
 	
 	public Nantgarth() {
 		Window.initialize(1280, 720, "Dungeons of Nantgarth");
 		this.camera = new Camera();
 		this.renderer = new Renderer(camera);
 		Window.addResizeHandler(renderer);
-		
+		this.level = new Level(20, 20);
 	}
 	
 	private void start () {
@@ -39,17 +41,7 @@ public final class Nantgarth {
 			renderer.clear();
 			renderer.start();
 			
-			for(int y = 0; y < mapSize; y++) {
-				for(int x = 0; x < mapSize; x++) {
-					renderer.tile(x, y, map[x + y * mapSize]);
-				}
-			}
-
-			renderer.wall(2, 2, "stonewall");
-			renderer.wall(2, 1.5f, "stonewallshadow");
-			
-			renderer.wall(3, 2, "smoothwall");
-			renderer.wall(3, 1.5f, "smoothwallshadow");
+			renderer.level(level);
 			
 			renderer.end();
 			

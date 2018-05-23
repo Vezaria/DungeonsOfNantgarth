@@ -5,6 +5,9 @@ import org.lwjgl.opengl.GL11;
 
 import net.nantgarth.gfx.cb.ResizeHandler;
 import net.nantgarth.gfx.mesh.Mesher;
+import net.nantgarth.world.Floor;
+import net.nantgarth.world.Level;
+import net.nantgarth.world.Wall;
 
 public class Renderer implements ResizeHandler {
 
@@ -43,6 +46,58 @@ public class Renderer implements ResizeHandler {
 	public void wall(float x, float y, String sprite) {
 		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
 			spriteBatch.submit(x, y, sprite, Mesher.WALL);
+		}
+	}
+	
+	public void detailSide(float x, float y, String sprite) {
+		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
+			spriteBatch.submit(x, y, sprite, Mesher.DETAIL_SIDE);
+		}
+	}
+	
+	public void detailTop(float x, float y, String sprite) {
+		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
+			spriteBatch.submit(x, y, sprite, Mesher.DETAIL_TOP);
+		}
+	}
+	
+	public void level(Level level) {
+		for(int y = level.getHeight()-1; y >= 0; y--) {
+			for(int x = 0; x < level.getWidth(); x++) {
+				Floor floor = level.floors[x + y * level.getWidth()];
+				Wall wall = level.walls[x + y * level.getWidth()];
+				if(floor != null) {
+					tile(x, y, floor.sprite);
+				}
+				if(wall != null) {
+					wall(x, y, wall.sprite);
+					tile(x, y + 0.5f, wall.sprite + "_top");
+				}
+			}
+		}
+		
+		for(int y = level.getHeight()-1; y >= 0; y--) {
+			for(int x = 0; x < level.getWidth(); x++) {
+				Wall wall = level.walls[x + y * level.getWidth()];
+				Wall north = level.wallAt(x, y + 1);
+				Wall east = level.wallAt(x + 1, y);
+				Wall south = level.wallAt(x, y - 1);
+				Wall west = level.wallAt(x - 1, y);
+				if(wall != null) {
+					if(south == null) {						
+						wall(x, y - 0.5f, wall.sprite + "_shadow");
+					}
+					if(west == null) {						
+						detailSide(x - 0.1f, y + 0.5f, wall.sprite + "_dleft");
+					}
+					if(east == null) {
+						detailSide(x + 1.0f, y + 0.5f, wall.sprite + "_dright");
+					}
+					if(north == null) {
+						detailTop(x, y + 1.5f, wall.sprite + "_dtop");
+					}
+				}
+			}
 		}
 	}
 	

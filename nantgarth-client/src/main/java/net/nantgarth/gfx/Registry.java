@@ -15,10 +15,17 @@ public class Registry {
 		registerSprite("grass", "floors", 14, 0, 14, 14);
 		registerSprite("sand",  "floors", 28, 0, 14, 14);
 
-		registerSprite("stonewall",        "walls", 0,  0, 14, 7);
-		registerSprite("stonewallshadow",  "walls", 0,  7, 14, 7);
-		registerSprite("smoothwall",       "walls", 14, 0, 14, 7);
-		registerSprite("smoothwallshadow", "walls", 14, 7, 14, 7);
+		registerWall("stonewall",  "walls", 0,  0);
+		registerWall("smoothwall", "walls", 16, 0);
+	}
+	
+	private static void registerWall(String id, String sheetID, int xPos, int yPos) {
+		registerSprite(id, sheetID, xPos, yPos, 16, 8);
+		registerSprite(id + "_shadow", sheetID, xPos, yPos + 8, 16, 8);
+		registerSprite(id + "_top", sheetID, xPos, yPos + 16, 16, 16);
+		registerSprite(id + "_dleft", sheetID, xPos, yPos + 32, 2, 20);
+		registerSprite(id + "_dright", sheetID, xPos + 3, yPos + 32, 2, 20);
+		registerSprite(id + "_dtop", sheetID, xPos, yPos + 52, 16, 2);
 	}
 	
 	private static void registerSheet(String id, String file) {
