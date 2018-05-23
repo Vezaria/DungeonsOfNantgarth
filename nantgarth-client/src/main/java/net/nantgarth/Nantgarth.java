@@ -44,8 +44,12 @@ public final class Nantgarth {
 					renderer.tile(x, y, map[x + y * mapSize]);
 				}
 			}
+
+			renderer.wall(2, 2, "stonewall");
+			renderer.wall(2, 1.5f, "stonewallshadow");
 			
-			renderer.triangle(-2, -2, "sand");
+			renderer.wall(3, 2, "smoothwall");
+			renderer.wall(3, 1.5f, "smoothwallshadow");
 			
 			renderer.end();
 			

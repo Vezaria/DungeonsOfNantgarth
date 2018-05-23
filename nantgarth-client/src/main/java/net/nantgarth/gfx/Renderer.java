@@ -21,6 +21,9 @@ public class Renderer implements ResizeHandler {
 		// Make sure OpenGL has been set up for the current thread.
 		GL.createCapabilities();
 		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		
 		// Now that OpenGL is operational, generate the texture atlas
 		// and create the sprite batch.
 		TextureAtlas.generate();
@@ -37,9 +40,9 @@ public class Renderer implements ResizeHandler {
 		}
 	}
 	
-	public void triangle(float x, float y, String sprite) {
+	public void wall(float x, float y, String sprite) {
 		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
-			spriteBatch.submit(x, y, sprite, Mesher.TRIANGLE);
+			spriteBatch.submit(x, y, sprite, Mesher.WALL);
 		}
 	}
 	
