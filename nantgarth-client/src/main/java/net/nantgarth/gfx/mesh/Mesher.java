@@ -103,7 +103,7 @@ public interface Mesher {
 	    float x1 = p.x;
 	    float y1 = p.y;
 	    float x2 = p.x + TILE_SIZE;
-	    float y2 = p.y + 0.1f;
+	    float y2 = p.y + (TILE_SIZE / 8f);
 	    
 	    // Bottom left
 	    v.put(x1);
@@ -147,8 +147,8 @@ public interface Mesher {
 	public static final Mesher DETAIL_SIDE = (v, p, tc) -> {
 	    float x1 = p.x;
 	    float y1 = p.y;
-	    float x2 = p.x + TILE_SIZE / 8f;
-	    float y2 = p.y + TILE_SIZE + 0.1f;
+	    float x2 = p.x + (TILE_SIZE / 8f);
+	    float y2 = p.y + TILE_SIZE + (TILE_SIZE / 4f);
 	    
 	    // Bottom left
 	    v.put(x1);

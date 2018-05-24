@@ -76,6 +76,7 @@ public class Renderer implements ResizeHandler {
 			}
 		}
 		
+		float p = 1f / 16f;
 		for(int y = level.getHeight()-1; y >= 0; y--) {
 			for(int x = 0; x < level.getWidth(); x++) {
 				Wall wall = level.walls[x + y * level.getWidth()];
@@ -88,7 +89,7 @@ public class Renderer implements ResizeHandler {
 						wall(x, y - 0.5f, wall.sprite + "_shadow");
 					}
 					if(west == null) {						
-						detailSide(x - 0.1f, y + 0.5f, wall.sprite + "_dleft");
+						detailSide(x - (p * 2f), y + 0.5f, wall.sprite + "_dleft");
 					}
 					if(east == null) {
 						detailSide(x + 1.0f, y + 0.5f, wall.sprite + "_dright");
