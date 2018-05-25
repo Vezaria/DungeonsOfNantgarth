@@ -20,12 +20,12 @@ public class Registry {
 	}
 	
 	private static void registerWall(String id, String sheetID, int xPos, int yPos) {
-		registerSprite(id, sheetID, xPos, yPos, 16, 8);
-		registerSprite(id + "_shadow", sheetID, xPos, yPos + 8, 16, 8);
-		registerSprite(id + "_top", sheetID, xPos, yPos + 16, 16, 16);
-		registerSprite(id + "_dleft", sheetID, xPos, yPos + 32, 2, 20);
-		registerSprite(id + "_dright", sheetID, xPos + 3, yPos + 32, 2, 20);
-		registerSprite(id + "_dtop", sheetID, xPos, yPos + 52, 16, 2);
+		registerSprite(id,  sheetID, xPos, yPos, 16, 8);
+		registerSprite(id + "_shadow", sheetID, xPos,     yPos + 8,  16, 8);
+		registerSprite(id + "_top",    sheetID, xPos,     yPos + 16, 16, 16);
+		registerSprite(id + "_dleft",  sheetID, xPos,     yPos + 32, 2,  20);
+		registerSprite(id + "_dright", sheetID, xPos + 3, yPos + 32, 2,  20);
+		registerSprite(id + "_dtop",   sheetID, xPos,     yPos + 52, 16, 2);
 	}
 	
 	private static void registerSheet(String id, String file) {

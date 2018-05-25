@@ -22,8 +22,10 @@ public class Level {
 		Random r = new Random();
 		for(int i = 0; i < walls.length; i++) {
 			int j = r.nextInt(100);
-			if(j > 75) {
+			if(j < 10) {
 				walls[i] = Wall.STONE;
+			} else if(j < 20) {
+				walls[i] = Wall.SMOOTH;
 			}
 		}
 	}

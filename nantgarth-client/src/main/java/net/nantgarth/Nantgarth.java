@@ -1,9 +1,9 @@
 package net.nantgarth;
 
-import java.util.Random;
+import java.util.ArrayList;
 
-import org.lwjgl.glfw.GLFW;
-
+import net.nantgarth.game.GameObject;
+import net.nantgarth.game.Player;
 import net.nantgarth.gfx.Camera;
 import net.nantgarth.gfx.Renderer;
 import net.nantgarth.gfx.Window;
@@ -11,58 +11,62 @@ import net.nantgarth.input.Input;
 import net.nantgarth.world.Level;
 
 public final class Nantgarth {
-	
+
 	private Camera camera;
 	private Renderer renderer;
 	private Level level;
-	
+
+	private ArrayList<GameObject> gameObjects = new ArrayList<>();
+	private Player player;
+
 	public Nantgarth() {
 		Window.initialize(1280, 720, "Dungeons of Nantgarth");
 		this.camera = new Camera();
 		this.renderer = new Renderer(camera);
 		Window.addResizeHandler(renderer);
 		this.level = new Level(20, 20);
+
+		this.player = new Player();
+		this.camera.setFollow(player);
+		this.gameObjects.add(player);
 	}
-	
-	private void start () {
-		int mapSize = 10;
-		String[] map = new String[mapSize * mapSize];
-		String[] tiles = {
-				"sand",
-				"stone",
-				"grass"
-		};
-		Random r = new Random();
-		for(int i = 0; i < map.length; i++) {
-			map[i] = tiles[r.nextInt(tiles.length)];
-		}
-		
-		while(Window.open()) {
+
+	private void start() {
+		long lastLoopTime = System.nanoTime();
+		final int TARGET_FPS = 60;
+		final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+
+		while (Window.open()) {
+			long now = System.nanoTime();
+			long updateLength = now - lastLoopTime;
+			lastLoopTime = now;
+			float dt = updateLength / ((float) OPTIMAL_TIME);
+
+			for (GameObject go : gameObjects) {
+				go.update(this, dt);
+			}
+
 			renderer.clear();
 			renderer.start();
-			
+
 			renderer.level(level);
-			
+
+			for (GameObject go : gameObjects) {
+				go.render(this, renderer);
+			}
+
 			renderer.end();
-			
-			if(Input.key(GLFW.GLFW_KEY_W).held) {
-				camera.getPosition().y += 0.01f;
-			}
-			if(Input.key(GLFW.GLFW_KEY_S).held) {
-				camera.getPosition().y -= 0.01f;
-			}
-			if(Input.key(GLFW.GLFW_KEY_A).held) {
-				camera.getPosition().x -= 0.01f;
-			}
-			if(Input.key(GLFW.GLFW_KEY_D).held) {
-				camera.getPosition().x += 0.01f;
-			}
-			
+
+			camera.update();
 			Input.update();
 			Window.update();
 		}
+		// On one computer I tested this on the program hangs on window close.
+		// This fixes that, although it may be crude.
+		Window.close();
+		System.exit(0);
 	}
-	
+
 	public static void main(String[] args) {
 		Nantgarth game = new Nantgarth();
 		game.start();

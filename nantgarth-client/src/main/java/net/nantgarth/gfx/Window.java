@@ -77,6 +77,11 @@ public final class Window {
 		return !glfwWindowShouldClose(window);
 	}
 	
+	public static void close() {
+		glfwDestroyWindow(window);
+		glfwTerminate();
+	}
+	
 	public static int getWidth() {
 		return width;
 	}
