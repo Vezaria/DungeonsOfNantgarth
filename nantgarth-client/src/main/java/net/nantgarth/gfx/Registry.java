@@ -10,11 +10,26 @@ public class Registry {
 	static {
 		registerSheet("floors", "floors.png");
 		registerSheet("walls",  "walls.png");
+		registerSheet("player", "player.png");
 
 		registerSprite("stone", "floors", 0,  0, 14, 14);
 		registerSprite("grass", "floors", 14, 0, 14, 14);
 		registerSprite("sand",  "floors", 28, 0, 14, 14);
 
+		registerSprite("player1R", "player", 0,   0, 24, 24);
+		registerSprite("player2R", "player", 24,  0, 24, 24);
+		registerSprite("player3R", "player", 48,  0, 24, 24);
+		registerSprite("player4R", "player", 72,  0, 24, 24);
+		registerSprite("player5R", "player", 96,  0, 24, 24);
+		registerSprite("player6R", "player", 120, 0, 24, 24);
+		
+		registerSprite("player1L", "player", 0,   24, 24, 24);
+		registerSprite("player2L", "player", 24,  24, 24, 24);
+		registerSprite("player3L", "player", 48,  24, 24, 24);
+		registerSprite("player4L", "player", 72,  24, 24, 24);
+		registerSprite("player5L", "player", 96,  24, 24, 24);
+		registerSprite("player6L", "player", 120, 24, 24, 24);
+		
 		registerWall("stonewall",  "walls", 0,  0);
 		registerWall("smoothwall", "walls", 16, 0);
 	}

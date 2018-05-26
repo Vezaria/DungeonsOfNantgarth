@@ -25,7 +25,7 @@ public class TextureAtlas {
 	 * Once we have more sprites we will need to increase this, but
 	 * for now this will do.
 	 */
-	public static final int ATLAS_SIZE = 160;
+	public static final int ATLAS_SIZE = 512;
 	
 	private static List<Sheet> sheets = new ArrayList<>();
 	private static HashMap<String, TextureCoordinates> tcLookup = new HashMap<>();
