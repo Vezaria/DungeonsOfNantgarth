@@ -1,8 +1,13 @@
 package net.nantgarth.gfx;
 
+import java.util.ArrayList;
+
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
+import net.nantgarth.Nantgarth;
+import net.nantgarth.game.GameObject;
+import net.nantgarth.game.Player;
 import net.nantgarth.gfx.cb.ResizeHandler;
 import net.nantgarth.gfx.mesh.Mesher;
 import net.nantgarth.world.Floor;
@@ -61,7 +66,7 @@ public class Renderer implements ResizeHandler {
 		}
 	}
 	
-	public void level(Level level) {
+	public void level(Level level, ArrayList<GameObject> objects, Nantgarth g) {
 		for(int y = level.getHeight()-1; y >= 0; y--) {
 			for(int x = 0; x < level.getWidth(); x++) {
 				Floor floor = level.floors[x + y * level.getWidth()];
@@ -71,15 +76,23 @@ public class Renderer implements ResizeHandler {
 				}
 				if(wall != null) {
 					wall(x, y, wall.sprite);
-					tile(x, y + 0.5f, wall.sprite + "_top");
 				}
 			}
+		}
+		
+		for (GameObject go : objects) {
+			go.render(g, this);
 		}
 		
 		float p = 1f / 16f;
 		for(int y = level.getHeight()-1; y >= 0; y--) {
 			for(int x = 0; x < level.getWidth(); x++) {
 				Wall wall = level.walls[x + y * level.getWidth()];
+				
+				if(wall != null) {
+					tile(x, y + 0.5f, wall.sprite + "_top");
+				}
+				
 				Wall north = level.wallAt(x, y + 1);
 				Wall east = level.wallAt(x + 1, y);
 				Wall south = level.wallAt(x, y - 1);

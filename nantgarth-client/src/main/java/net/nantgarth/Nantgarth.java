@@ -49,11 +49,8 @@ public final class Nantgarth {
 			renderer.clear();
 			renderer.start();
 
-			renderer.level(level);
+			renderer.level(level, gameObjects, this);
 
-			for (GameObject go : gameObjects) {
-				go.render(this, renderer);
-			}
 
 			renderer.end();
 
