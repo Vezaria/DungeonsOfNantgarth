@@ -190,4 +190,72 @@ public interface Mesher {
 	};
 
 	public int generate(FloatBuffer v, Vector2f p, TextureCoordinates tc);
+	
+	public static Vector2f rotate(float x, float y, float rx, float ry, float r) {
+		float px = rx;
+		float py = ry;
+		
+		float nx = (float) (px + (x-px)*Math.cos(r)-(y-py)*Math.sin(r));
+		float ny = (float) (py + (x-px)*Math.sin(r)+(y-py)*Math.cos(r));
+		
+		return new Vector2f(nx, ny);
+	}
+	
+	public static Mesher create(float width, float height, float r) {
+		return new Mesher() {
+			public int generate(FloatBuffer v, Vector2f p, TextureCoordinates tc) {
+			    float x1 = p.x;
+			    float y1 = p.y;
+			    float x2 = p.x + width;
+			    float y2 = p.y + height;
+			    
+			    float rx = x1 + 1;
+			    float ry = y1 + 1;
+			    
+			    Vector2f rot = rotate(x1, y1, rx, ry, r);
+			    // Bottom left
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s1);
+			    v.put(tc.t2);
+
+			    rot = rotate(x1, y2, rx, ry, r);
+			    // Top left
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s1);
+			    v.put(tc.t1);
+
+			    rot = rotate(x2, y2, rx, ry, r);
+			    // Top right
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s2);
+			    v.put(tc.t1);
+
+			    rot = rotate(x1, y1, rx, ry, r);
+			    // Bottom left
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s1);
+			    v.put(tc.t2);
+
+			    rot = rotate(x2, y2, rx, ry, r);
+			    // Top right
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s2);
+			    v.put(tc.t1);
+			    
+			    rot = rotate(x2, y1, rx, ry, r);
+			    // Bottom right
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s2);
+			    v.put(tc.t2);
+			    
+			    return 6;
+			}
+		};
+	}
 }

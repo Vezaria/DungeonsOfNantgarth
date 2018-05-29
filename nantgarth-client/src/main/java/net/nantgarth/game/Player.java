@@ -66,7 +66,7 @@ public class Player extends GameObject {
 		float left = newX + 0.2f;
 		float right = newX + 0.8f;
 		float bottom = newY;
-		float top = newY + 0.3f;
+		float top = newY + 0.4f;
 		
 		boolean collision = collision(left, right, position.y, position.y + 0.3f, g.level);
 		if(!collision) {

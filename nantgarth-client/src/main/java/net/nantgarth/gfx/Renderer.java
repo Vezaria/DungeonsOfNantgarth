@@ -66,6 +66,11 @@ public class Renderer implements ResizeHandler {
 		}
 	}
 	
+	public void rotateTest(float x, float y, float r) {
+		spriteBatch.submit(x, y, "sand", Mesher.create(2, 2, r));
+		
+	}
+	
 	public void level(Level level, ArrayList<GameObject> objects, Nantgarth g) {
 		for(int y = level.getHeight()-1; y >= 0; y--) {
 			for(int x = 0; x < level.getWidth(); x++) {

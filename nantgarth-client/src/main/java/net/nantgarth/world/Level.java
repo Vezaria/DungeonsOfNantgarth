@@ -28,6 +28,8 @@ public class Level {
 				walls[i] = Wall.SMOOTH;
 			}
 		}
+		
+		walls[0] = null;
 	}
 	
 	public Wall wallAt(int x, int y) {

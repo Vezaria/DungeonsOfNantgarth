@@ -17,3 +17,8 @@ Texture atlas should probably also be generated to a power of two
  
 https://www.gamedev.net/articles/programming/graphics/opengl-batch-rendering-r3900/
 https://github.com/SilverTiger/lwjgl3-tutorial/wiki/Batching
+
+Things to add to settings menu:
+	Audio controls
+	Shadows(?)
+	Camera lerp factor

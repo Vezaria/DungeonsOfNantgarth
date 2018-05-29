@@ -2,6 +2,8 @@ package net.nantgarth;
 
 import java.util.ArrayList;
 
+import org.lwjgl.glfw.GLFW;
+
 import net.nantgarth.game.GameObject;
 import net.nantgarth.game.Player;
 import net.nantgarth.gfx.Camera;
@@ -31,6 +33,7 @@ public final class Nantgarth {
 		this.gameObjects.add(player);
 	}
 
+	float r = 0;
 	private void start() {
 		long lastLoopTime = System.nanoTime();
 		final int TARGET_FPS = 60;
@@ -46,8 +49,17 @@ public final class Nantgarth {
 				go.update(this, dt);
 			}
 
+			if(Input.key(GLFW.GLFW_KEY_E).held) {
+				r += 0.1f;
+			}
+			if(Input.key(GLFW.GLFW_KEY_Q).held) {
+				r -= 0.1f;
+			}
+			
 			renderer.clear();
 			renderer.start();
+
+			renderer.rotateTest(player.getPosition().x, player.getPosition().y, (float)Math.toRadians(r));
 
 			renderer.level(level, gameObjects, this);
 
