@@ -28,11 +28,14 @@ public class Camera {
 		projection = Matrix4f.ortho(left, right, bottom, top, -1, 1);
 	}
 	
-	public void update() {
+	public void update(float dt) {
 		if(follow != null) {
 			// Add 0.5 so that the camera is centered on the 1 unit by 1 unit player.
-			this.position.x = follow.getPosition().x + 0.5f;
-			this.position.y = follow.getPosition().y + 0.5f;
+			float targetX = follow.getPosition().x + 0.5f;
+			float targetY = follow.getPosition().y + 0.5f;
+			
+			this.position.x += (targetX - position.x) * dt * 0.2f;
+			this.position.y += (targetY - position.y) * dt * 0.2f;
 		}
 	}
 	

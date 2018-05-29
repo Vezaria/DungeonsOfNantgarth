@@ -54,7 +54,7 @@ public final class Nantgarth {
 
 			renderer.end();
 
-			camera.update();
+			camera.update(dt);
 			Input.update();
 			Window.update();
 		}
