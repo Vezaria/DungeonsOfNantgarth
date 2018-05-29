@@ -14,7 +14,7 @@ public final class Nantgarth {
 
 	private Camera camera;
 	private Renderer renderer;
-	private Level level;
+	public Level level;
 
 	private ArrayList<GameObject> gameObjects = new ArrayList<>();
 	private Player player;
