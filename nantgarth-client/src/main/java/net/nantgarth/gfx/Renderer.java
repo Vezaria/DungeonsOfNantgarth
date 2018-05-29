@@ -7,7 +7,6 @@ import org.lwjgl.opengl.GL11;
 
 import net.nantgarth.Nantgarth;
 import net.nantgarth.game.GameObject;
-import net.nantgarth.game.Player;
 import net.nantgarth.gfx.cb.ResizeHandler;
 import net.nantgarth.gfx.mesh.Mesher;
 import net.nantgarth.world.Floor;
@@ -19,6 +18,8 @@ public class Renderer implements ResizeHandler {
 	private final Camera camera;
 	
 	private SpriteBatch spriteBatch;
+	
+	private LineRenderer lineRenderer;
 	
 	public Renderer(Camera camera) {
 		this.camera = camera;
@@ -36,10 +37,21 @@ public class Renderer implements ResizeHandler {
 		// and create the sprite batch.
 		TextureAtlas.generate();
 		this.spriteBatch = new SpriteBatch();
+		
+		this.lineRenderer = new LineRenderer();
 	}
 
 	public void start() {
 		spriteBatch.begin();
+		lineRenderer.begin();
+	}
+	
+	public void line(float x1, float y1, float x2, float y2, float r, float g, float b) {
+		lineRenderer.submit(x1, y1, x2, y2, r, g, b);
+	}
+	
+	public void rect(float x, float y, float width, float height, float r, float g, float b) {
+		lineRenderer.rect(x, y, width, height, r, g, b);
 	}
 	
 	public void tile(float x, float y, String sprite) {
@@ -68,7 +80,6 @@ public class Renderer implements ResizeHandler {
 	
 	public void rotateTest(float x, float y, float r) {
 		spriteBatch.submit(x, y, "sand", Mesher.create(2, 2, r));
-		
 	}
 	
 	public void level(Level level, ArrayList<GameObject> objects, Nantgarth g) {
@@ -122,6 +133,7 @@ public class Renderer implements ResizeHandler {
 	
 	public void end() {
 		spriteBatch.end(camera);
+		lineRenderer.end(camera);
 	}
 	
 	public void onResize(int newWidth, int newHeight) {

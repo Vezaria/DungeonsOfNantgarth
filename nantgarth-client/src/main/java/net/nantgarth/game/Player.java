@@ -32,17 +32,12 @@ public class Player extends GameObject {
 		}
 		r.tile(position.x, position.y, animation.currentFrame() + (direction ? "L" : "R"));
 
-		/*
 		float left = position.x + 0.2f;
 		float right = position.x + 0.8f;
 		float bottom = position.y;
-		float top = position.y + 0.3f;
-			
-		r.detailSide(left, position.y, "stonewall_dright");
-		r.detailSide(right, position.y, "stonewall_dleft");
-		r.detailTop(position.x, top, "stonewall_dtop");
-		r.detailTop(position.x, bottom, "stonewall_dtop");
-		*/
+		float top = position.y + 0.4f;
+		
+		r.rect(left, bottom, right - left, top - bottom, 1, 0, 0);
 	}
 
 	public void update(Nantgarth g, float dt) {
@@ -68,7 +63,7 @@ public class Player extends GameObject {
 		float bottom = newY;
 		float top = newY + 0.4f;
 		
-		boolean collision = collision(left, right, position.y, position.y + 0.3f, g.level);
+		boolean collision = collision(left, right, position.y, position.y + 0.4f, g.level);
 		if(!collision) {
 			position.x = newX;
 		}
