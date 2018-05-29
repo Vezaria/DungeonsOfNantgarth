@@ -18,6 +18,13 @@ Texture atlas should probably also be generated to a power of two
 https://www.gamedev.net/articles/programming/graphics/opengl-batch-rendering-r3900/
 https://github.com/SilverTiger/lwjgl3-tutorial/wiki/Batching
 
+https://www.dafont.com/alagard.font
+
+https://www.dafont.com/pixellari.font
+https://www.dafont.com/cube-cavern.font
+https://www.dafont.com/alpha-beta.font
+https://www.dafont.com/athens-classic.font
+
 Things to add to settings menu:
 	Audio controls
 	Shadows(?)

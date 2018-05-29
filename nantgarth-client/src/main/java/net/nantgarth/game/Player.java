@@ -37,7 +37,12 @@ public class Player extends GameObject {
 		float bottom = position.y;
 		float top = position.y + 0.4f;
 		
+		// Visualize the players hitbox
 		r.rect(left, bottom, right - left, top - bottom, 1, 0, 0);
+		
+		// Visualize the players velocity
+		Vector2f vel = velocity.normalize();
+		r.line(position.x + 0.5f, position.y + 0.5f, (position.x + 0.5f) + (vel.x), (position.y + 0.5f) + (vel.y), 0, 1, 1);
 	}
 
 	public void update(Nantgarth g, float dt) {

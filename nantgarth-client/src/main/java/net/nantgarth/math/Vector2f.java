@@ -56,6 +56,15 @@ public class Vector2f {
 		return (float) Math.sqrt((x * x) + (y * y));
 	}
 	
+	public Vector2f normalize() {
+		float m = mag();
+		if(m != 0) {			
+			return new Vector2f(x / m, y / m);
+		} else {
+			return new Vector2f();
+		}
+	}
+	
 	/**
 	 * Calculates the dot product of this vector with another.
 	 * @param v Other vector.

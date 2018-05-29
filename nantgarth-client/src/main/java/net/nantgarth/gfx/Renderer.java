@@ -36,7 +36,7 @@ public class Renderer implements ResizeHandler {
 		// Now that OpenGL is operational, generate the texture atlas
 		// and create the sprite batch.
 		TextureAtlas.generate();
-		this.spriteBatch = new SpriteBatch();
+		this.spriteBatch = new SpriteBatch(Shader.load("res/shaders/sprite.vs", "res/shaders/sprite.fs"));
 		
 		this.lineRenderer = new LineRenderer();
 	}

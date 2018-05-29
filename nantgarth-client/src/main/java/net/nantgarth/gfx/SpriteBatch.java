@@ -22,9 +22,6 @@ public final class SpriteBatch {
 	 * The size of the buffer. This may have to be increased at some point.
 	 */
 	private static final int BUFFER_SIZE = 4096 * 8;
-
-	private static final String VERTEX = "res/shaders/test.vs";
-	private static final String FRAGMENT = "res/shaders/test.fs";
 	
 	private FloatBuffer vertices;
 	private int vertexCount;
@@ -35,11 +32,11 @@ public final class SpriteBatch {
 
 	private Shader shader;
 	
-	public SpriteBatch() {
+	public SpriteBatch(Shader shader) {
 		this.vertices = MemoryUtil.memAllocFloat(BUFFER_SIZE);
 		this.vertexCount = 0;
 		this.drawing = false;
-		this.shader = Shader.load(VERTEX, FRAGMENT);
+		this.shader = shader;
 		initialize();
 	}
 	

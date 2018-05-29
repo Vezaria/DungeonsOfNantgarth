@@ -78,7 +78,6 @@ public final class LineRenderer {
 	}
 	
 	public void begin() {
-		TextureAtlas.bind();
 		vertexCount = 0;
 		drawing = true;
 	}
