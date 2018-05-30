@@ -4,7 +4,7 @@ import net.nantgarth.Nantgarth;
 
 public class PartyHUD extends UIElement {
 
-	private float scale = 3;
+	private float scale = 2;
 	
 	public PartyHUD() {
 		this.x = 2;

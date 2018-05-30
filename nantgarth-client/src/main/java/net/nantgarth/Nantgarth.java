@@ -1,6 +1,7 @@
 package net.nantgarth;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -10,6 +11,9 @@ import net.nantgarth.gfx.FollowCamera;
 import net.nantgarth.gfx.Renderer;
 import net.nantgarth.gfx.Window;
 import net.nantgarth.input.Input;
+import net.nantgarth.math.Matrix4f;
+import net.nantgarth.math.Vector2f;
+import net.nantgarth.math.Vector4f;
 import net.nantgarth.ui.PartyHUD;
 import net.nantgarth.ui.UIManager;
 import net.nantgarth.world.Level;
@@ -70,10 +74,14 @@ public final class Nantgarth {
 
 			renderer.level(level, gameObjects, this);
 
+			Vector2f mouseWorld = camera.mouseToWorld(Input.mouseX(), Input.mouseY());
+			renderer.line(player.getPosition().x, player.getPosition().y, mouseWorld.x, mouseWorld.y, 1, 0, 1);
+			
 			renderer.end();
 			
 			uiManager.render();
 
+			
 			camera.update(dt);
 			Input.update();
 			Window.update();

@@ -34,6 +34,14 @@ public final class Input {
 		MouseButton.update();
 	}
 	
+	public static int mouseX() {
+		return MousePosition.mx;
+	}
+	
+	public static int mouseY() {
+		return MousePosition.my;
+	}
+	
 	/**
 	 * Wrapper for {@link GLFWCursorPosCallback}.
 	 * Responsible for handling movement of the mouse.

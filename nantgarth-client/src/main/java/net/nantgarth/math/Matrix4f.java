@@ -123,6 +123,150 @@ public class Matrix4f {
 		
 		return res;
 	}
+	
+	public static Matrix4f inverse(Matrix4f m) {
+		float[] inv = new float[16];
+
+	    inv[0] = m.e[5]  * m.e[10] * m.e[15] - 
+	             m.e[5]  * m.e[11] * m.e[14] - 
+	             m.e[9]  * m.e[6]  * m.e[15] + 
+	             m.e[9]  * m.e[7]  * m.e[14] +
+	             m.e[13] * m.e[6]  * m.e[11] - 
+	             m.e[13] * m.e[7]  * m.e[10];
+
+	    inv[4] = -m.e[4]  * m.e[10] * m.e[15] + 
+	              m.e[4]  * m.e[11] * m.e[14] + 
+	              m.e[8]  * m.e[6]  * m.e[15] - 
+	              m.e[8]  * m.e[7]  * m.e[14] - 
+	              m.e[12] * m.e[6]  * m.e[11] + 
+	              m.e[12] * m.e[7]  * m.e[10];
+
+	    inv[8] = m.e[4]  * m.e[9] * m.e[15] - 
+	             m.e[4]  * m.e[11] * m.e[13] - 
+	             m.e[8]  * m.e[5] * m.e[15] + 
+	             m.e[8]  * m.e[7] * m.e[13] + 
+	             m.e[12] * m.e[5] * m.e[11] - 
+	             m.e[12] * m.e[7] * m.e[9];
+
+	    inv[12] = -m.e[4]  * m.e[9] * m.e[14] + 
+	               m.e[4]  * m.e[10] * m.e[13] +
+	               m.e[8]  * m.e[5] * m.e[14] - 
+	               m.e[8]  * m.e[6] * m.e[13] - 
+	               m.e[12] * m.e[5] * m.e[10] + 
+	               m.e[12] * m.e[6] * m.e[9];
+
+	    inv[1] = -m.e[1]  * m.e[10] * m.e[15] + 
+	              m.e[1]  * m.e[11] * m.e[14] + 
+	              m.e[9]  * m.e[2] * m.e[15] - 
+	              m.e[9]  * m.e[3] * m.e[14] - 
+	              m.e[13] * m.e[2] * m.e[11] + 
+	              m.e[13] * m.e[3] * m.e[10];
+
+	    inv[5] = m.e[0]  * m.e[10] * m.e[15] - 
+	             m.e[0]  * m.e[11] * m.e[14] - 
+	             m.e[8]  * m.e[2] * m.e[15] + 
+	             m.e[8]  * m.e[3] * m.e[14] + 
+	             m.e[12] * m.e[2] * m.e[11] - 
+	             m.e[12] * m.e[3] * m.e[10];
+
+	    inv[9] = -m.e[0]  * m.e[9] * m.e[15] + 
+	              m.e[0]  * m.e[11] * m.e[13] + 
+	              m.e[8]  * m.e[1] * m.e[15] - 
+	              m.e[8]  * m.e[3] * m.e[13] - 
+	              m.e[12] * m.e[1] * m.e[11] + 
+	              m.e[12] * m.e[3] * m.e[9];
+
+	    inv[13] = m.e[0]  * m.e[9] * m.e[14] - 
+	              m.e[0]  * m.e[10] * m.e[13] - 
+	              m.e[8]  * m.e[1] * m.e[14] + 
+	              m.e[8]  * m.e[2] * m.e[13] + 
+	              m.e[12] * m.e[1] * m.e[10] - 
+	              m.e[12] * m.e[2] * m.e[9];
+
+	    inv[2] = m.e[1]  * m.e[6] * m.e[15] - 
+	             m.e[1]  * m.e[7] * m.e[14] - 
+	             m.e[5]  * m.e[2] * m.e[15] + 
+	             m.e[5]  * m.e[3] * m.e[14] + 
+	             m.e[13] * m.e[2] * m.e[7] - 
+	             m.e[13] * m.e[3] * m.e[6];
+
+	    inv[6] = -m.e[0]  * m.e[6] * m.e[15] + 
+	              m.e[0]  * m.e[7] * m.e[14] + 
+	              m.e[4]  * m.e[2] * m.e[15] - 
+	              m.e[4]  * m.e[3] * m.e[14] - 
+	              m.e[12] * m.e[2] * m.e[7] + 
+	              m.e[12] * m.e[3] * m.e[6];
+
+	    inv[10] = m.e[0]  * m.e[5] * m.e[15] - 
+	              m.e[0]  * m.e[7] * m.e[13] - 
+	              m.e[4]  * m.e[1] * m.e[15] + 
+	              m.e[4]  * m.e[3] * m.e[13] + 
+	              m.e[12] * m.e[1] * m.e[7] - 
+	              m.e[12] * m.e[3] * m.e[5];
+
+	    inv[14] = -m.e[0]  * m.e[5] * m.e[14] + 
+	               m.e[0]  * m.e[6] * m.e[13] + 
+	               m.e[4]  * m.e[1] * m.e[14] - 
+	               m.e[4]  * m.e[2] * m.e[13] - 
+	               m.e[12] * m.e[1] * m.e[6] + 
+	               m.e[12] * m.e[2] * m.e[5];
+
+	    inv[3] = -m.e[1] * m.e[6] * m.e[11] + 
+	              m.e[1] * m.e[7] * m.e[10] + 
+	              m.e[5] * m.e[2] * m.e[11] - 
+	              m.e[5] * m.e[3] * m.e[10] - 
+	              m.e[9] * m.e[2] * m.e[7] + 
+	              m.e[9] * m.e[3] * m.e[6];
+
+	    inv[7] = m.e[0] * m.e[6] * m.e[11] - 
+	             m.e[0] * m.e[7] * m.e[10] - 
+	             m.e[4] * m.e[2] * m.e[11] + 
+	             m.e[4] * m.e[3] * m.e[10] + 
+	             m.e[8] * m.e[2] * m.e[7] - 
+	             m.e[8] * m.e[3] * m.e[6];
+
+	    inv[11] = -m.e[0] * m.e[5] * m.e[11] + 
+	               m.e[0] * m.e[7] * m.e[9] + 
+	               m.e[4] * m.e[1] * m.e[11] - 
+	               m.e[4] * m.e[3] * m.e[9] - 
+	               m.e[8] * m.e[1] * m.e[7] + 
+	               m.e[8] * m.e[3] * m.e[5];
+
+	    inv[15] = m.e[0] * m.e[5] * m.e[10] - 
+	              m.e[0] * m.e[6] * m.e[9] - 
+	              m.e[4] * m.e[1] * m.e[10] + 
+	              m.e[4] * m.e[2] * m.e[9] + 
+	              m.e[8] * m.e[1] * m.e[6] - 
+	              m.e[8] * m.e[2] * m.e[5];
+	    
+	    float det = m.e[0] * inv[0] + m.e[1] * inv[4] + m.e[2] * inv[8] + m.e[3] * inv[12];
+	    
+	    if(det == 0) {
+	    	return new Matrix4f();
+	    }
+	    
+	    det = 1.0f / det;
+	    
+	    Matrix4f res = new Matrix4f(0);
+	    for(int i = 0; i < 16; i++) {
+	    	res.e[i] = inv[i] * det;
+	    }
+	    return res;
+	}
+	
+	public Vector4f mul(Vector4f x) {
+		Vector4f res = new Vector4f();
+		
+		res.x = (x.x * e[0 + 0 * 4]) + (x.y * e[1 + 0 * 4]) + (x.z * e[2 + 0 * 4]) + (x.w * e[3 + 0 * 4]);
+
+		res.y = (x.x * e[0 + 1 * 4]) + (x.y * e[1 + 1 * 4]) + (x.z * e[2 + 1 * 4]) + (x.w * e[3 + 1 * 4]);
+
+		res.z = (x.x * e[0 + 2 * 4]) + (x.y * e[1 + 2 * 4]) + (x.z * e[2 + 2 * 4]) + (x.w * e[3 + 2 * 4]);
+
+		res.w = (x.x * e[0 + 3 * 4]) + (x.y * e[1 + 3 * 4]) + (x.z * e[2 + 3 * 4]) + (x.w * e[3 + 3 * 4]);
+		
+		return res;
+	}
 
 	public String toString() {
 		String res = "";

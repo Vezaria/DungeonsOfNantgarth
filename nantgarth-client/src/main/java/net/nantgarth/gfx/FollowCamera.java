@@ -3,6 +3,8 @@ package net.nantgarth.gfx;
 import net.nantgarth.game.GameObject;
 import net.nantgarth.math.Matrix4f;
 import net.nantgarth.math.Vector2f;
+import net.nantgarth.math.Vector3f;
+import net.nantgarth.math.Vector4f;
 
 public class FollowCamera implements Camera {
 	
@@ -37,6 +39,23 @@ public class FollowCamera implements Camera {
 			this.position.x += (targetX - position.x) * dt * 0.2f;
 			this.position.y += (targetY - position.y) * dt * 0.2f;
 		}
+	}
+	
+	public Vector2f mouseToWorld(int mx, int my) {
+		float x = (2.0f * mx) / Window.getWidth() - 1.0f;
+		float y = 1.0f - (2.0f * my) / Window.getHeight();
+		
+		Vector4f clip = new Vector4f(x, y, -1, 1);
+		
+		Vector4f ray = Matrix4f.inverse(projection).mul(clip);
+		ray.z = -1;
+		ray.w = 1;
+		
+		Vector4f world = Matrix4f.inverse(getView()).mul(ray);
+		
+		Vector3f fin = new Vector3f(world.x, world.y, world.z);
+		
+		return new Vector2f(fin.x, fin.y);
 	}
 	
 	public void setFollow(GameObject o) {

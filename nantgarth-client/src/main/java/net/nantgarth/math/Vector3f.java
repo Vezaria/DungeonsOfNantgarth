@@ -48,7 +48,7 @@ public class Vector3f {
 	 * @return A new vector which has had this multiplication applied to it.
 	 */
 	public Vector3f mul(float f) {
-		return new Vector3f(x * f, y * f, y - f);
+		return new Vector3f(x * f, y * f, z - f);
 	}
 	
 	/**
@@ -56,6 +56,15 @@ public class Vector3f {
 	 */
 	public float mag() {
 		return (float) Math.sqrt((x * x) + (y * y) + (z * z));
+	}
+
+	public Vector3f normalize() {
+		float m = mag();
+		if(m != 0) {			
+			return new Vector3f(x / m, y / m, z / m);
+		} else {
+			return new Vector3f();
+		}
 	}
 	
 	/**
