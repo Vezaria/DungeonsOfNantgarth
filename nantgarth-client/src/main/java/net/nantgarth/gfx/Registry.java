@@ -11,11 +11,16 @@ public class Registry {
 		registerSheet("floors", "floors.png");
 		registerSheet("walls",  "walls.png");
 		registerSheet("player", "player.png");
+		registerSheet("ui", "ui.png");
 
 		registerSprite("stone", "floors", 0,  0, 14, 14);
 		registerSprite("grass", "floors", 14, 0, 14, 14);
 		registerSprite("sand",  "floors", 28, 0, 14, 14);
 
+		registerSprite("party_portrait", "ui", 0,  0,  21, 18);
+		registerSprite("party_status",   "ui", 21, 3,  59, 15);
+		registerSprite("party_bottom",   "ui", 0,  18, 21, 3);
+		
 		registerSprite("player1R", "player", 0,   0, 24, 24);
 		registerSprite("player2R", "player", 24,  0, 24, 24);
 		registerSprite("player3R", "player", 48,  0, 24, 24);

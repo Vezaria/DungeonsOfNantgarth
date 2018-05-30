@@ -15,13 +15,13 @@ import net.nantgarth.world.Wall;
 
 public class Renderer implements ResizeHandler {
 
-	private final Camera camera;
+	private final FollowCamera camera;
 	
 	private SpriteBatch spriteBatch;
 	
 	private LineRenderer lineRenderer;
 	
-	public Renderer(Camera camera) {
+	public Renderer(FollowCamera camera) {
 		this.camera = camera;
 		init();
 	}

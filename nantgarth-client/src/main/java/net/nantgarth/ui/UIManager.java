@@ -3,24 +3,41 @@ package net.nantgarth.ui;
 import java.util.ArrayList;
 
 import net.nantgarth.Nantgarth;
-import net.nantgarth.gfx.Renderer;
+import net.nantgarth.gfx.cb.ResizeHandler;
 
-public class UIManager {
+public class UIManager implements ResizeHandler {
 
-	// construct ortho matrix where one unit is one pixel on the screen
-	// ui renderer should have its own spritebatch
-	
 	private ArrayList<UIElement> elements = new ArrayList<>();
 	
-	public void render(Renderer r) {
+	private UIRenderer renderer;
+	
+	public UIManager() {
+		this.renderer = new UIRenderer();
+	}
+	
+	public void render() {
+		renderer.start();
 		for(UIElement e : elements) {
-			e.render(r);
+			e.render(renderer);
 		}
+		renderer.end();
 	}
 	
 	public void update(Nantgarth g, float dt) {
 		for(UIElement e : elements) {
 			e.update(g, dt);
 		}
+	}
+	
+	public void add(UIElement element) {
+		elements.add(element);
+	}
+	
+	public UIRenderer getRenderer() {
+		return renderer;
+	}
+
+	public void onResize(int newWidth, int newHeight) {
+		renderer.updateProjection(newWidth, newHeight);
 	}
 }

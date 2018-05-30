@@ -6,24 +6,27 @@ import org.lwjgl.glfw.GLFW;
 
 import net.nantgarth.game.GameObject;
 import net.nantgarth.game.Player;
-import net.nantgarth.gfx.Camera;
+import net.nantgarth.gfx.FollowCamera;
 import net.nantgarth.gfx.Renderer;
 import net.nantgarth.gfx.Window;
 import net.nantgarth.input.Input;
+import net.nantgarth.ui.PartyHUD;
+import net.nantgarth.ui.UIManager;
 import net.nantgarth.world.Level;
 
 public final class Nantgarth {
 
-	private Camera camera;
+	private FollowCamera camera;
 	private Renderer renderer;
 	public Level level;
+	private UIManager uiManager;
 
 	private ArrayList<GameObject> gameObjects = new ArrayList<>();
 	private Player player;
 
 	public Nantgarth() {
 		Window.initialize(1280, 720, "Dungeons of Nantgarth");
-		this.camera = new Camera();
+		this.camera = new FollowCamera();
 		this.renderer = new Renderer(camera);
 		Window.addResizeHandler(renderer);
 		this.level = new Level(20, 20);
@@ -31,6 +34,10 @@ public final class Nantgarth {
 		this.player = new Player();
 		this.camera.setFollow(player);
 		this.gameObjects.add(player);
+		
+		this.uiManager = new UIManager();
+		this.uiManager.add(new PartyHUD());
+		Window.addResizeHandler(uiManager);
 	}
 
 	float r = 0;
@@ -63,8 +70,9 @@ public final class Nantgarth {
 
 			renderer.level(level, gameObjects, this);
 
-
 			renderer.end();
+			
+			uiManager.render();
 
 			camera.update(dt);
 			Input.update();
