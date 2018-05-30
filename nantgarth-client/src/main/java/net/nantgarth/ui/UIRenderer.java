@@ -40,4 +40,9 @@ public class UIRenderer implements Camera {
 	public void updateProjection(int windowWidth, int windowHeight) {
 		projection = Matrix4f.ortho(0, windowWidth, windowHeight, 0, -1, 1);
 	}
+
+	public float getLeft() { return 0; }
+	public float getRight() {return 0; }
+	public float getBottom() { return 0; }
+	public float getTop() { return 0; }
 }

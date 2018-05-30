@@ -1,50 +1,23 @@
 package net.nantgarth;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import org.lwjgl.glfw.GLFW;
-
-import net.nantgarth.game.GameObject;
-import net.nantgarth.game.Player;
-import net.nantgarth.gfx.FollowCamera;
 import net.nantgarth.gfx.Renderer;
 import net.nantgarth.gfx.Window;
 import net.nantgarth.input.Input;
-import net.nantgarth.math.Matrix4f;
-import net.nantgarth.math.Vector2f;
-import net.nantgarth.math.Vector4f;
-import net.nantgarth.ui.PartyHUD;
-import net.nantgarth.ui.UIManager;
-import net.nantgarth.world.Level;
+import net.nantgarth.state.GameState;
+import net.nantgarth.state.StateManager;
 
 public final class Nantgarth {
 
-	private FollowCamera camera;
 	private Renderer renderer;
-	public Level level;
-	private UIManager uiManager;
-
-	private ArrayList<GameObject> gameObjects = new ArrayList<>();
-	private Player player;
 
 	public Nantgarth() {
 		Window.initialize(1280, 720, "Dungeons of Nantgarth");
-		this.camera = new FollowCamera();
-		this.renderer = new Renderer(camera);
+		this.renderer = new Renderer();
 		Window.addResizeHandler(renderer);
-		this.level = new Level(20, 20);
-
-		this.player = new Player();
-		this.camera.setFollow(player);
-		this.gameObjects.add(player);
 		
-		this.uiManager = new UIManager();
-		this.uiManager.add(new PartyHUD());
-		Window.addResizeHandler(uiManager);
+		StateManager.pushState(new GameState());
 	}
-
-	float r = 0;
+	
 	private void start() {
 		long lastLoopTime = System.nanoTime();
 		final int TARGET_FPS = 60;
@@ -56,33 +29,17 @@ public final class Nantgarth {
 			lastLoopTime = now;
 			float dt = updateLength / ((float) OPTIMAL_TIME);
 
-			for (GameObject go : gameObjects) {
-				go.update(this, dt);
-			}
+			StateManager.currentState().update(this, dt);
 
-			if(Input.key(GLFW.GLFW_KEY_E).held) {
-				r += 0.1f;
-			}
-			if(Input.key(GLFW.GLFW_KEY_Q).held) {
-				r -= 0.1f;
-			}
-			
 			renderer.clear();
 			renderer.start();
-
-			renderer.rotateTest(player.getPosition().x, player.getPosition().y, (float)Math.toRadians(r));
-
-			renderer.level(level, gameObjects, this);
-
-			Vector2f mouseWorld = camera.mouseToWorld(Input.mouseX(), Input.mouseY());
-			renderer.line(player.getPosition().x, player.getPosition().y, mouseWorld.x, mouseWorld.y, 1, 0, 1);
+			
+			StateManager.currentState().render(this, renderer);
 			
 			renderer.end();
 			
-			uiManager.render();
-
+			StateManager.currentState().postRender(this);
 			
-			camera.update(dt);
 			Input.update();
 			Window.update();
 		}

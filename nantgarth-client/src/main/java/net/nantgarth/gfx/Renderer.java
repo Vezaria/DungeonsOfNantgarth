@@ -15,14 +15,13 @@ import net.nantgarth.world.Wall;
 
 public class Renderer implements ResizeHandler {
 
-	private final FollowCamera camera;
+	private Camera camera = null;
 	
 	private SpriteBatch spriteBatch;
 	
 	private LineRenderer lineRenderer;
 	
-	public Renderer(FollowCamera camera) {
-		this.camera = camera;
+	public Renderer() {
 		init();
 	}
 	
@@ -55,25 +54,25 @@ public class Renderer implements ResizeHandler {
 	}
 	
 	public void tile(float x, float y, String sprite) {
-		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
+		if(camera != null && x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
 			spriteBatch.submit(x, y, sprite, Mesher.FLOOR);
 		}
 	}
 	
 	public void wall(float x, float y, String sprite) {
-		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
+		if(camera != null && x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
 			spriteBatch.submit(x, y, sprite, Mesher.WALL);
 		}
 	}
 	
 	public void detailSide(float x, float y, String sprite) {
-		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
+		if(camera != null && x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
 			spriteBatch.submit(x, y, sprite, Mesher.DETAIL_SIDE);
 		}
 	}
 	
 	public void detailTop(float x, float y, String sprite) {
-		if(x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
+		if(camera != null && x > camera.getLeft() - 1f && x < camera.getRight() && y < camera.getTop() && y > camera.getBottom() - 1f) {
 			spriteBatch.submit(x, y, sprite, Mesher.DETAIL_TOP);
 		}
 	}
@@ -143,5 +142,13 @@ public class Renderer implements ResizeHandler {
 	
 	public void clear() {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+	}
+	
+	public void setCamera(Camera camera) {
+		this.camera = camera;
+	}
+	
+	public Camera getCamera() {
+		return camera;
 	}
 }

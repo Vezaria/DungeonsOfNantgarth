@@ -15,13 +15,17 @@ public class Player extends GameObject {
 	private Vector2f velocity = new Vector2f();
 	
 	private Animation animation;
-	
 	private boolean direction = true;
 	
-	public Player() {
+	// The level the player is currently in
+	// This information should be moved up to game object
+	private Level level = null;
+	
+	public Player(Level level) {
 		this.animation = new Animation(new String[] {
 				"player1", "player2", "player3", "player4", "player5", "player6"
 		});
+		this.level = level;
 	}
 	
 	public void render(Nantgarth g, Renderer r) {
@@ -68,11 +72,11 @@ public class Player extends GameObject {
 		float bottom = newY;
 		float top = newY + 0.4f;
 		
-		boolean collision = collision(left, right, position.y, position.y + 0.4f, g.level);
+		boolean collision = collision(left, right, position.y, position.y + 0.4f, level);
 		if(!collision) {
 			position.x = newX;
 		}
-		collision = collision(position.x + 0.2f, position.x + 0.8f, bottom, top, g.level);
+		collision = collision(position.x + 0.2f, position.x + 0.8f, bottom, top, level);
 		if(!collision) {
 			position.y = newY;
 		}

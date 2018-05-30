@@ -82,7 +82,7 @@ public final class LineRenderer {
 		drawing = true;
 	}
 	
-	public void end(FollowCamera camera) {
+	public void end(Camera camera) {
 		vertices.flip();
 		vao.bind();
 		shader.bind();
