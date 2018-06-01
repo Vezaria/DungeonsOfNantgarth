@@ -3,6 +3,7 @@ package net.nantgarth.gfx;
 public class Animation {
 
 	private int fTime = 100;
+	private boolean playing = true;
 	
 	private long lastTime = System.currentTimeMillis();
 	
@@ -15,17 +16,23 @@ public class Animation {
 	}
 
 	public void update() {
-		if(System.currentTimeMillis() - lastTime >= fTime) {
-			lastTime = System.currentTimeMillis();
-			if(currentFrame + 1 > frames.length - 1) {
-				currentFrame = 0;
-			} else {
-				currentFrame++;
+		if(playing) {
+			if(System.currentTimeMillis() - lastTime >= fTime) {
+				lastTime = System.currentTimeMillis();
+				if(currentFrame + 1 > frames.length - 1) {
+					currentFrame = 0;
+				} else {
+					currentFrame++;
+				}
 			}
 		}
 	}
 	
 	public String currentFrame() {
 		return frames[currentFrame];
+	}
+	
+	public void setPlaying(boolean playing) {
+		this.playing = playing;
 	}
 }

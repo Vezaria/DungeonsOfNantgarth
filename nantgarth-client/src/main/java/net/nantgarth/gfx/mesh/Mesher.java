@@ -201,7 +201,7 @@ public interface Mesher {
 		return new Vector2f(nx, ny);
 	}
 	
-	public static Mesher create(float width, float height, float r) {
+	public static Mesher create(float width, float height, float r, float rotationX, float rotationY) {
 		return new Mesher() {
 			public int generate(FloatBuffer v, Vector2f p, TextureCoordinates tc) {
 			    float x1 = p.x;
@@ -209,8 +209,8 @@ public interface Mesher {
 			    float x2 = p.x + width;
 			    float y2 = p.y + height;
 			    
-			    float rx = x1 + 1;
-			    float ry = y1 + 1;
+			    float rx = x1 + rotationX;
+			    float ry = y1 + rotationY;
 			    
 			    Vector2f rot = rotate(x1, y1, rx, ry, r);
 			    // Bottom left

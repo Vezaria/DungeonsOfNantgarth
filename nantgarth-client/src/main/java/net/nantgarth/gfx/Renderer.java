@@ -77,8 +77,9 @@ public class Renderer implements ResizeHandler {
 		}
 	}
 	
-	public void rotateTest(float x, float y, float r) {
-		spriteBatch.submit(x, y, "sand", Mesher.create(2, 2, r));
+	public void sprite(float x, float y, float width, float height, float rotation, float rotateX, float rotateY, String sprite) {
+		// TODO: bounds check with camera
+		spriteBatch.submit(x, y, sprite, Mesher.create(width, height, rotation, rotateX, rotateY));
 	}
 	
 	public void level(Level level, ArrayList<GameObject> objects, Nantgarth g) {

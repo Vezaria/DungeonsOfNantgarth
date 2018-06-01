@@ -16,7 +16,10 @@ public class Registry {
 		registerSheet("ui", "ui.png");
 		registerSheet("font_title", "font_title.png");
 		registerSheet("font_text", "font_text.png");
+		registerSheet("weapon", "weapon.png");
 
+		registerSprite("weapon", "weapon", 0, 0, 30, 5);
+		
 		registerFont(Font.TITLE, "font_title", 140, 14);
 		registerFont(Font.TEXT, "font_text", 120, 12);
 		

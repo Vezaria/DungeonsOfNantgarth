@@ -48,9 +48,6 @@ public class GameState extends State {
 		}
 		
 		renderer.level(level, gameObjects, g);
-
-		Vector2f mouseWorld = camera.mouseToWorld(Input.mouseX(), Input.mouseY());
-		renderer.line(player.getPosition().x, player.getPosition().y, mouseWorld.x, mouseWorld.y, 1, 0, 1);
 		
 		if(Input.mouse(GLFW.GLFW_MOUSE_BUTTON_1).pressed) {
 			Vector2f pos = camera.mouseToWorld(Input.mouseX(), Input.mouseY());
