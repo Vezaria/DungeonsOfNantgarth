@@ -316,4 +316,90 @@ public interface Mesher {
 			}
 		};
 	}
+	
+	public static Mesher createFlipped(float width, float height, int type, float r, float g, float b) {
+		return new Mesher() {
+			public int generate(FloatBuffer v, Vector2f p, TextureCoordinates tc) {
+			    //TODO: This could be used to create a gradient of text if we set 
+			    //      the bottom vertices and the top vertices to different colors.
+			    
+			    float x1 = p.x;
+			    float y1 = p.y;
+			    float x2 = p.x + width;
+			    float y2 = p.y + height;
+			    
+			    float rx = x1 + 1;
+			    float ry = y1 + 1;
+			    
+			    float rotation = 0;
+			    Vector2f rot = rotate(x1, y1, rx, ry, rotation);
+			    // Bottom left
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s1);
+			    v.put(tc.t1);
+			    v.put(r);
+			    v.put(g);
+			    v.put(b);
+			    v.put(type);
+
+			    rot = rotate(x1, y2, rx, ry, rotation);
+			    // Top left
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s1);
+			    v.put(tc.t2);
+			    v.put(r);
+			    v.put(g);
+			    v.put(b);
+			    v.put(type);
+
+			    rot = rotate(x2, y2, rx, ry, rotation);
+			    // Top right
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s2);
+			    v.put(tc.t2);
+			    v.put(r);
+			    v.put(g);
+			    v.put(b);
+			    v.put(type);
+
+			    rot = rotate(x1, y1, rx, ry, rotation);
+			    // Bottom left
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s1);
+			    v.put(tc.t1);
+			    v.put(r);
+			    v.put(g);
+			    v.put(b);
+			    v.put(type);
+
+			    rot = rotate(x2, y2, rx, ry, rotation);
+			    // Top right
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s2);
+			    v.put(tc.t2);
+			    v.put(r);
+			    v.put(g);
+			    v.put(b);
+			    v.put(type);
+			    
+			    rot = rotate(x2, y1, rx, ry, rotation);
+			    // Bottom right
+			    v.put(rot.x);
+			    v.put(rot.y);
+			    v.put(tc.s2);
+			    v.put(tc.t1);
+			    v.put(r);
+			    v.put(g);
+			    v.put(b);
+			    v.put(type);
+			    
+			    return 6;
+			}
+		};
+	}
 }

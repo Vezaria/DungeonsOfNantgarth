@@ -2,19 +2,20 @@ package net.nantgarth.ui;
 
 import net.nantgarth.gfx.Camera;
 import net.nantgarth.gfx.Shader;
-import net.nantgarth.gfx.SpriteBatch;
+import net.nantgarth.gfx.UIBatch;
 import net.nantgarth.gfx.Window;
+import net.nantgarth.gfx.font.Font;
 import net.nantgarth.gfx.mesh.Mesher;
 import net.nantgarth.math.Matrix4f;
 
 public class UIRenderer implements Camera {
 
 	private Matrix4f projection = null;
-	private SpriteBatch spriteBatch;
+	private UIBatch spriteBatch;
 	
 	public UIRenderer() {
 		updateProjection(Window.getWidth(), Window.getHeight());
-		this.spriteBatch = new SpriteBatch(Shader.load("res/shaders/sprite.vs", "res/shaders/ui.fs"));
+		this.spriteBatch = new UIBatch(Shader.load("res/shaders/ui.vs", "res/shaders/ui.fs"));
 	}
 	
 	public void start() {
@@ -26,7 +27,19 @@ public class UIRenderer implements Camera {
 	}
 	
 	public void sprite(float x, float y, float width, float height, String sprite) {
-		spriteBatch.submit(x, y, sprite, Mesher.createFlipped(width, height, 0));
+		spriteBatch.submit(x, y, sprite, Mesher.createFlipped(width, height, 0, 0, 0, 0));
+	}
+	
+	public void text(float x, float y, int scale, String str, float r, float g, float b, Font font) {
+		for(char c : str.toCharArray()) {
+			if(c == ' ') {
+				x += font.getWidth(0) * scale;
+			} else {				
+				spriteBatch.submit(x, y, font.getName() + "_" + c, Mesher.createFlipped(font.getWidth(c) * scale, font.getHeight() * scale, 1, r, g, b));
+				
+				x += font.getWidth(c) * scale;				
+			}
+		}
 	}
 	
 	public Matrix4f getProjection() {

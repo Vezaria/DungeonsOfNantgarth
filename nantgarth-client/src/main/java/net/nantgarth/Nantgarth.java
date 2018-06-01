@@ -2,6 +2,7 @@ package net.nantgarth;
 
 import net.nantgarth.gfx.Renderer;
 import net.nantgarth.gfx.Window;
+import net.nantgarth.gfx.font.Font;
 import net.nantgarth.input.Input;
 import net.nantgarth.state.GameState;
 import net.nantgarth.state.StateManager;

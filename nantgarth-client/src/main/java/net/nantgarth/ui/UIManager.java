@@ -39,5 +39,8 @@ public class UIManager implements ResizeHandler {
 
 	public void onResize(int newWidth, int newHeight) {
 		renderer.updateProjection(newWidth, newHeight);
+		for(UIElement e : elements) {
+			e.onResize(newWidth, newHeight);
+		}
 	}
 }

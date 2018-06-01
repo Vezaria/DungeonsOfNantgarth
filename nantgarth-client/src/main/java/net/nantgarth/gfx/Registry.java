@@ -2,6 +2,8 @@ package net.nantgarth.gfx;
 
 import java.util.ArrayList;
 
+import net.nantgarth.gfx.font.Font;
+
 public class Registry {
 
 	public static final ArrayList<SheetRegister> SHEET_REGISTRY = new ArrayList<>();
@@ -12,7 +14,12 @@ public class Registry {
 		registerSheet("walls",  "walls.png");
 		registerSheet("player", "player.png");
 		registerSheet("ui", "ui.png");
+		registerSheet("font_title", "font_title.png");
+		registerSheet("font_text", "font_text.png");
 
+		registerFont(Font.TITLE, "font_title", 140, 14);
+		registerFont(Font.TEXT, "font_text", 120, 12);
+		
 		registerSprite("stone", "floors", 0,  0, 14, 14);
 		registerSprite("grass", "floors", 14, 0, 14, 14);
 		registerSprite("sand",  "floors", 28, 0, 14, 14);
@@ -20,6 +27,20 @@ public class Registry {
 		registerSprite("party_portrait", "ui", 0,  0,  21, 18);
 		registerSprite("party_status",   "ui", 21, 3,  59, 15);
 		registerSprite("party_bottom",   "ui", 0,  18, 21, 3);
+		
+		registerSprite("minimap_base", "ui", 0, 21, 80, 80);
+
+		registerSprite("windowTR", "ui", 85, 0, 4, 4);
+		registerSprite("windowBL", "ui", 80, 5, 4, 4);
+		registerSprite("windowBR", "ui", 85, 5, 4, 4);
+		
+		registerSprite("windowT", "ui", 84, 0, 1, 4);
+		registerSprite("windowB", "ui", 84, 5, 1, 4);
+		registerSprite("windowL", "ui", 80, 4, 4, 1);
+		registerSprite("windowR", "ui", 85, 4, 4, 1);
+		registerSprite("windowC", "ui", 84, 4, 1, 1);
+		
+		registerSprite("windowTitleTest", "ui", 80, 9, 43, 21);
 		
 		registerSprite("player1R", "player", 0,   0, 24, 24);
 		registerSprite("player2R", "player", 24,  0, 24, 24);
@@ -46,6 +67,16 @@ public class Registry {
 		registerSprite(id + "_dleft",  sheetID, xPos,     yPos + 32, 2,  20);
 		registerSprite(id + "_dright", sheetID, xPos + 3, yPos + 32, 2,  20);
 		registerSprite(id + "_dtop",   sheetID, xPos,     yPos + 52, 16, 2);
+	}
+	
+	private static void registerFont(Font font, String sheetID, int sheetWidth, int size) {
+		font.setSize(size);
+		for(char c = 33; c < 33 + 94; c++) {
+			int x = (c - 33) % (sheetWidth / size);
+			int y = (c - 33) / (sheetWidth / size);
+			//System.out.println(c + " at " + x + ", " + y);
+			registerSprite(font.getName() + "_" + c, sheetID, x * size, y * size, font.getWidth(c), size);
+		}
 	}
 	
 	private static void registerSheet(String id, String file) {
